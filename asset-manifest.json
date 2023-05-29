@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/OrbitAI/static/css/main.d907d810.css",
+    "main.js": "/OrbitAI/static/js/main.49c6c418.js",
+    "static/js/787.1eda2f29.chunk.js": "/OrbitAI/static/js/787.1eda2f29.chunk.js",
+    "static/media/outerspc.avif": "/OrbitAI/static/media/outerspc.d12d3171dc70509896d0.avif",
+    "index.html": "/OrbitAI/index.html",
+    "main.d907d810.css.map": "/OrbitAI/static/css/main.d907d810.css.map",
+    "main.49c6c418.js.map": "/OrbitAI/static/js/main.49c6c418.js.map",
+    "787.1eda2f29.chunk.js.map": "/OrbitAI/static/js/787.1eda2f29.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d907d810.css",
+    "static/js/main.49c6c418.js"
+  ]
+}
