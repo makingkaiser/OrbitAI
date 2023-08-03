@@ -11,7 +11,7 @@ export default function FileUpload({ onNamespaceUpdate }) {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [label, setLabel] = useState("Upload a file...");
-  const [isLoading, setIsLoading] = useState(false); // Add a state variable for the loading indicator
+  const [isLoading, setIsLoading] = useState(false); // Adds a state variable for the loading indicator
 
   function handleFile(event) {
     const selectedFile = event.target.files[0];
@@ -137,7 +137,7 @@ export default function FileUpload({ onNamespaceUpdate }) {
           Ask questions, upload additional documents for OrbitAI to learn,{" "}
           <br /> and share your customized chatbot through namespaces.{" "}
         </p>{" "}
-        <div class="intro-paragraph-2">
+        <div className="intro-paragraph-2">
   <h2>How do I use OrbitAI?</h2>
   <p>
     Simply upload your
