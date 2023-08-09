@@ -22,46 +22,52 @@ export default function ChatComponent({ namespace }) {
   const prevNamespaceRef = useRef();
 
   useEffect(() => {
-    if (namespace && prevNamespaceRef.current !== namespace) {
-      axios
-        .post(`/api/execute-gpt-query/${namespace}`, {
-          input: `based on the document search, generate an overview/main points of the document as best you can in the following format:
-      I believe your document is about <insert the overview here>
-      If you cannot find a document or have trouble generating an overview, do another Document search and select a few interesting or main points instead to tell the user about.
-      `,
-        })
-        .then((response) => {
-          const message1 = {
-            message: response.data.output,
-            sender: "ChatGPT",
-          };
-          setMessages([...messages, message1]);
+  if (namespace && prevNamespaceRef.current !== namespace) {
+    axios
+      .post(`/api/execute-gpt-query/${namespace}`, {
+        input: `based on the document search, generate an overview/main points of the document as best you can in the following format:
+  I believe your document is about <insert the overview here>
+  If you cannot find a document or have trouble generating an overview, do another Document search and select a few interesting or main points instead to tell the user about.
+  `,
+      })
+      .then((response) => {
+        const message1 = {
+          message: response.data.output,
+          sender: "ChatGPT",
+        };
+        setMessages([...messages, message1]);
 
-          axios
-            .post(`/api/execute-gpt-query/${namespace}`, {
-              input: `based on the document search, generate a list of 3-4 questions that encapsulate the main points of the document that you definitely know the answer to, in the format:
-          Here are some questions I can answer:
-          <insert questions here>
-          `,
-            })
-            .then((response) => {
-              const message2 = {
-                message: response.data.output,
-                sender: "ChatGPT",
-              };
-              setMessages([...messages, message1, message2]);
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
+        const thinkingMessage = {
+          message: "Please wait. Generating some possible questions...",
+          sender: "ChatGPT",
+        };
+        setMessages([...messages, message1, thinkingMessage]);
 
-    prevNamespaceRef.current = namespace;
-  }, [namespace]);
+        axios
+          .post(`/api/execute-gpt-query/${namespace}`, {
+            input: `based on the document search, generate a list of 3-4 questions that encapsulate the main points of the document that you definitely know the answer to, in the format:
+        Here are some questions I can answer:
+        <insert questions here>
+        `,
+          })
+          .then((response) => {
+            const message2 = {
+              message: response.data.output,
+              sender: "ChatGPT",
+            };
+            setMessages([...messages, message1, thinkingMessage, message2]);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  prevNamespaceRef.current = namespace;
+}, [namespace]);
   const submitHandler = async (event) => {
     event.preventDefault();
 
