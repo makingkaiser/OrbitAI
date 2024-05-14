@@ -33,7 +33,7 @@ index_name = "podcasts"
 
 # Pincone API key
 
-api_key = "721f43b4-3f81-4e8d-b42e-2a0eb86e5141"
+api_key = "API_KEY"
 env = "asia-southeast1-gcp-free"
 openapi_config = OpenApiConfiguration.get_default_copy()
 openapi_config.proxy = "http://proxy.server:3128"
@@ -45,7 +45,7 @@ CORS(app)
 @app.route("/api/execute-gpt-query/<string:namespace>", methods=["POST"])
 @cross_origin()
 def execute_python_function(namespace):
-    OPENAI_API_KEY="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"
+    OPENAI_API_KEY=""
     default_prompt = """You are OrbitAI, a friendly search engine built by Kaiser who provides informative answers to users. Answer the following questions as best you can. You have access to the following tools:"""
     new_suffix = """Begin! Remember to give detailed, informative answers. If possible, try to directly enter the question into the tool.
 
@@ -132,10 +132,11 @@ def upload_file(namespace):
         chunk_size=1000, chunk_overlap=100, length_function=len
     )
     docs = text_splitter.split_documents(documents)
-    embeddings = OpenAIEmbeddings(openai_api_key="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")
+    embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key
+                                 )
 
     pinecone.init(
-        api_key="721f43b4-3f81-4e8d-b42e-2a0eb86e5141",
+        api_key="PINECONE_API_KEY",
         environment="asia-southeast1-gcp-free",
         openapi_config=openapi_config
     )
